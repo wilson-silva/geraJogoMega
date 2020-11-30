@@ -12,11 +12,16 @@ def home(request):
     lista = []
     cont = 0
     while True:
-        num = randint(1, 26)
+        num = randint(1, 25)
         if num not in lista:
             lista.append(num)
             cont += 1
-        if cont == 5:
+        if cont == 15:
             break
-    contexto = {'valor1': a, 'valor2': b, 'nome': nome, 'aleatorios': lista}
+
+    var = ''
+    if request.POST:
+        var = request.POST['variavel']
+
+    contexto = {'valor1': a, 'valor2': b, 'nome': nome, 'aleatorios': lista, 'valor3': var}
     return render(request, 'index.html', contexto)
