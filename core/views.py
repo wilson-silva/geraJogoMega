@@ -6,22 +6,27 @@ from random import randint
 # Create your views here.
 
 def home(request):
-    a = randint(1, 10)
-    b = randint(1, 100)
-    nome = 'Wilson'
-    lista = []
-    cont = 0
-    while True:
-        num = randint(1, 25)
-        if num not in lista:
-            lista.append(num)
-            cont += 1
-        if cont == 15:
-            break
-
-    var = ''
+    jogos = []
+    jogo = []
+    repeticao = list()
     if request.POST:
-        var = request.POST['variavel']
+        n = int(request.POST['variavel'])
+        for j in range(n):
+            cont = 0
+            while cont < 15:
+                num = randint(1, 26)
+                if num not in jogo:
+                    jogo.append(num)
+                    cont += 1
+            jogos.append(jogo[:])
+            jogo.clear()
 
-    contexto = {'valor1': a, 'valor2': b, 'nome': nome, 'aleatorios': lista, 'valor3': var}
+        for i in range(1, 26):
+            count = 0
+            for j in jogos:
+                if i in j:
+                    count += 1
+            repeticao.append(count)
+
+    contexto = {'jogos': jogos, 'repeticao': repeticao}
     return render(request, 'index.html', contexto)
